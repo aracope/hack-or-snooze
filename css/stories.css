@@ -1,13 +1,25 @@
 /* Lists of stories */
 
 .stories-list {
+  display: flex;
+  flex-direction: column;
   margin: 20px 5px;
 }
 
-.stories-list > li {
+.stories-list>li {
   color: gray;
-  font-size: 0.8rem;
-  margin: 10px 0;
+  font-size: 1rem;
+  /* Add padding inside each story item */
+  padding: 12px;
+  /* display: flex;
+  flex-direction: column; */
+}
+
+.story-details {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  /* margin-left: 10px; */
 }
 
 #stories-loading-msg {
@@ -16,14 +28,33 @@
   margin: 20px 30px;
 }
 
+#favorited-stories,
+#my-stories {
+  list-style: none;
+  padding-left: 20px;
+}
+
 
 /* Individual stories */
 
+.story-details {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  margin-left: 10px;
+}
+
+.trash-can:hover {
+  color: rgb(255, 0, 0);
+}
+
 .story-link {
   color: black;
-  font-size: 0.85rem;
+  font-size: 1rem;
   font-weight: normal;
-  margin: 18px 0;
+  /* Space above the story link */
+  padding-top: 10px;
+  flex-grow: 1; /* Makes the title take available space */
 }
 
 .story-link:hover {
@@ -31,9 +62,31 @@
 }
 
 .story-author {
-  margin-left: 2em;
+  font-size: 0.80rem;
+  /* margin-left: 2em; */
+  color: #508612;
 }
 
 .story-user {
   display: block;
+  color: #fd8c0b;
+  font-size: 0.80rem;
+}
+
+.story-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+.story-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.star, .trash-can {
+  cursor: pointer;
 }
