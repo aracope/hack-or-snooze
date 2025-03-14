@@ -54,11 +54,9 @@ function getDeleteBtnHTML() {
 /** Make favorite/not-favorite star for story */
 
 function getStarHTML(story, user) {
-  const isFavorite = user.isFavorite(story);
-  const starType = isFavorite ? "fas" : "far";
   return `
       <span class="star">
-        <i class="${starType} fa-star"></i>
+        <i class="${user.isFavorite(story) ? 'fas' : 'far'} fa-star"></i>
       </span>`;
 }
 

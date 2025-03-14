@@ -24,7 +24,7 @@ class Story {
   /** Parses hostname out of URL and returns it. */
 
   getHostName() {
-    return new URL(this.url).host;
+    return new URL(this.url).hostname;
   }
 }
 
@@ -51,7 +51,7 @@ class StoryList {
     //  **not** an instance method. Rather, it is a method that is called on the
     //  class directly. Why doesn't it make sense for getStories to be an
     //  instance method?
-    
+
 
     // query the /stories endpoint (no auth required)
     const response = await axios({
@@ -98,7 +98,6 @@ class StoryList {
  */
 
   async removeStory(user, storyId) {
-    const token = user.loginToken;
     await axios({
       url: `${BASE_URL}/stories/${storyId}`,
       method: "DELETE",
@@ -253,11 +252,10 @@ class User {
 
   async _addOrRemoveFavorite(newState, story) {
     const method = newState === "add" ? "POST" : "DELETE";
-    const token = this.loginToken;
     await axios({
       url: `${BASE_URL}/users/${this.username}/favorites/${story.storyId}`,
-      method: method,
-      data: { token },
+      method,
+      data: { token: this.loginToken }
     });
   }
 
