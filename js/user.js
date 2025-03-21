@@ -23,6 +23,11 @@ async function login(evt) {
 
   $loginForm.trigger("reset");
 
+  if (!currentUser) {
+    console.warn("Login failed: Not updating UI.");
+    return; // Stop execution if login failed
+  }
+
   saveUserCredentialsInLocalStorage();
   updateUIOnUserLogin();
 }

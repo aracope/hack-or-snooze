@@ -152,6 +152,7 @@ class User {
    */
 
   static async signup(username, password, name) {
+    try {
     const response = await axios({
       url: `${BASE_URL}/signup`,
       method: "POST",
@@ -170,7 +171,15 @@ class User {
       },
       response.data.token
     );
+  }  catch (err) {
+    console.error("Signup failed", err.response?.data || err);
+
+    document.getElementById("error-message").innerText = "Username already taken!";
+    document.getElementById("error-message").style.display = "block";
+    
+    return null;
   }
+}
 
   /** Login in user with API, make User instance & return it.
 
@@ -179,25 +188,35 @@ class User {
    */
 
   static async login(username, password) {
-    const response = await axios({
-      url: `${BASE_URL}/login`,
-      method: "POST",
-      data: { user: { username, password } },
-    });
+    try {
+      const response = await axios({
+        url: `${BASE_URL}/login`,
+        method: "POST",
+        data: { user: { username, password } },
+      });
 
-    let { user } = response.data;
+      let { user } = response.data;
 
-    return new User(
-      {
-        username: user.username,
-        name: user.name,
-        createdAt: user.createdAt,
-        favorites: user.favorites,
-        ownStories: user.stories
-      },
-      response.data.token
-    );
-  }
+      return new User(
+        {
+          username: user.username,
+          name: user.name,
+          createdAt: user.createdAt,
+          favorites: user.favorites,
+          ownStories: user.stories
+        },
+        response.data.token
+      );
+    } catch (err) {
+      console.error("Login failed", err.response?.data || err);
+
+      // Update the UI with an error message
+      document.getElementById("error-message").innerText = "Invalid username or password!";
+      document.getElementById("error-message").style.display = "block";
+    }
+      return null;
+    }
+
 
   /** When we already have credentials (token & username) for a user,
    *   we can log them in automatically. This function does that.

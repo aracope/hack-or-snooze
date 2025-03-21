@@ -13,6 +13,12 @@
   padding-left: 20px;
 }
 
+#error-message {
+  color: red;
+  font-size: 14px;
+  display: none; /* Hidden by default */
+}
+
 /* User profile */
 
 .user-profile-box {

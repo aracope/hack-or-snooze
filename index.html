@@ -48,7 +48,7 @@
   <!-- area for stories (all stories, user stories, favorites) -->
   <section class="stories-container container" id="stories-container">
     <!-- form for submitted new story -->
-    <form action="#" class="hidden" id="submit-form">
+    <form action="" class="hidden" id="submit-form">
       <div>
         <label for="create-author">author</label>
         <input id="create-author" required placeholder="author name">
@@ -59,7 +59,7 @@
       </div>
       <div>
         <label for="create-url">url</label>
-        <input id="create-url" required type="url" placeholder="story url">
+        <input id="create-url" required type="url" placeholder="story url" required>
       </div>
       <button type="submit">submit</button>
       <hr>
@@ -84,15 +84,16 @@
 
     <!-- Login form -->
     <form action="#" id="login-form" class="account-form hidden" method="post">
-      <div id="login-error" class="error-message" style="display: none; color: red;"></div>
+      <div id="error-message" class="error-message" style="display: none;"></div>
+
       <h4>Login</h4>
       <div class="login-input">
         <label for="login-username">username</label>
-        <input id="login-username" autocomplete="current-username">
+        <input required id="login-username" autocomplete="current-username">
       </div>
       <div class="login-input">
         <label for="login-password">password</label>
-        <input id="login-password" type="password" autocomplete="current-password">
+        <input required id="login-password" type="password" autocomplete="current-password">
       </div>
       <button type="submit">login</button>
       <hr>
@@ -100,7 +101,7 @@
 
     <!-- Signup form -->
     <form action="#" id="signup-form" class="account-form hidden" method="post">
-      <div id="signup-error" class="error-message" style="display: none; color: red;"></div>
+      <div id="error-message" class="error-message" style="display: none;"></div>
       <h4>Create Account</h4>
       <div class="login-input">
         <label for="signup-name">name</label>
@@ -112,7 +113,7 @@
       </div>
       <div class="login-input">
         <label for="signup-password">password</label>
-        <input id="signup-password" autocomplete="new-password" type="password">
+        <input required id="signup-password" autocomplete="new-password" type="password">
       </div>
       <button type="submit">create account</button>
     </form>
