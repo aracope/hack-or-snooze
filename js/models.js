@@ -153,33 +153,45 @@ class User {
 
   static async signup(username, password, name) {
     try {
-    const response = await axios({
-      url: `${BASE_URL}/signup`,
-      method: "POST",
-      data: { user: { username, password, name } },
-    });
+      const response = await axios({
+        url: `${BASE_URL}/signup`,
+        method: "POST",
+        data: { user: { username, password, name } },
+      });
 
-    let { user } = response.data
+      let { user } = response.data
 
-    return new User(
-      {
-        username: user.username,
-        name: user.name,
-        createdAt: user.createdAt,
-        favorites: user.favorites,
-        ownStories: user.stories
-      },
-      response.data.token
-    );
-  }  catch (err) {
-    console.error("Signup failed", err.response?.data || err);
+      return new User(
+        {
+          username: user.username,
+          name: user.name,
+          createdAt: user.createdAt,
+          favorites: user.favorites,
+          ownStories: user.stories
+        },
+        response.data.token
+      );
+    } catch (err) {
+      console.error("Signup failed", err.response?.data || err);
 
-    document.getElementById("error-message").innerText = "Username already taken!";
-    document.getElementById("error-message").style.display = "block";
-    
-    return null;
+      // Check if the error message mentions username being taken
+      let acctErrorMessage = "Signup failed. Please try again.";
+
+      if (err.response && err.response.data && err.response.data.error) {
+        acctErrorMessage = err.response.data.error.message;
+      } else if (err.response && err.response.status === 409) {
+        acctErrorMessage = "Username already taken!";
+      }
+
+      // Display the error message in the UI
+      const acctErrorMessageEl = document.getElementById("acct-creation-error-message");
+      if (acctErrorMessageEl) {
+        acctErrorMessageEl.innerText = acctErrorMessage;
+        acctErrorMessageEl.style.display = "block";
+      }
+      return null;
+    }
   }
-}
 
   /** Login in user with API, make User instance & return it.
 
@@ -214,8 +226,8 @@ class User {
       document.getElementById("error-message").innerText = "Invalid username or password!";
       document.getElementById("error-message").style.display = "block";
     }
-      return null;
-    }
+    return null;
+  }
 
 
   /** When we already have credentials (token & username) for a user,
