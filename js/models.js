@@ -153,6 +153,9 @@ class User {
 
   static async signup(username, password, name) {
     try {
+      // Convert username to lowercase before sending to the API, prevents user from making multiple profiles with variations of capitalization on the same word
+      username = username.toLowerCase();
+      
       const response = await axios({
         url: `${BASE_URL}/signup`,
         method: "POST",

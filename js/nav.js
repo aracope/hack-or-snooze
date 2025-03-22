@@ -8,8 +8,12 @@
 
 function navAllStories(evt) {
   console.debug("navAllStories", evt);
-  hidePageComponents();
-  putStoriesOnPage();
+  try {
+    hidePageComponents();
+    putStoriesOnPage();
+  } catch (err) {
+    console.error("Error showing all stories:", err);
+  }
 }
 
 $body.on("click", "#nav-all", navAllStories);
@@ -74,8 +78,9 @@ $navUserProfile.on("click", navProfileClick);
 
 function updateNavOnLogin() {
   console.debug("updateNavOnLogin");
-  $(".main-nav-links").css('display', 'flex');;
+  $(".main-nav-links").addClass("logged-in");
   $navLogin.hide();
   $navLogOut.show();
+  $storiesContainer.show()
   $navUserProfile.text(`${currentUser.username}`).show();
 }

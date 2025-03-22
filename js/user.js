@@ -52,6 +52,7 @@ async function signup(evt) {
     console.warn("Signup failed: Not updating UI.");
     return; // Stop execution if signup failed
   }
+  
 
   saveUserCredentialsInLocalStorage();
   updateUIOnUserLogin();

@@ -19,6 +19,10 @@
   display: none; /* Hidden by default */
 }
 
+.logged-in {
+  display: flex;
+}
+
 /* User profile */
 
 .user-profile-box {
